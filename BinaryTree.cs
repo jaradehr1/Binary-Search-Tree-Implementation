@@ -236,6 +236,13 @@ namespace Binary_Search_Tree_Implementation
             }
             return root.IsBalanced();
         }
+        
+        public bool IsValidBinarySearchTree() {
+            if (root == null) {
+                return true;
+            }
+            return root.IsValidBinarySearchTree(null, null);
+        }
 
         public void Print() {
             if (root != null) {
@@ -432,6 +439,39 @@ namespace Binary_Search_Tree_Implementation
                 return ((LeftNode != null ? LeftNode.IsBalanced() : true) && (RightNode != null ? RightNode.IsBalanced() : true));
             }
 
+        }
+        
+        public bool IsValidBinarySearchTree(int? minLeftValue, int? maxRightValue) {
+            bool leftTree = true;
+            bool rightTree = true;
+
+            // If we have reached a leaf node, return true
+            if (LeftNode == null && RightNode == null) {
+                return true;
+            }
+
+            // If we have a left node, check if it is in range
+            if (LeftNode != null) {
+                // Left must be less than parent and greater than the minLeftValue value set by the last right node transition
+                if (LeftNode.Data < Data && (minLeftValue == null || minLeftValue < LeftNode.Data)) {
+                    leftTree = LeftNode.IsValidBinarySearchTree(minLeftValue, Data);
+                } else {
+                    // If the node is not in range, return false
+                    return false;
+                }
+            }
+            if (RightNode != null) {
+                // Right must be greater than parent and greater than the maxRightValue value set by the last left node transition
+                if (RightNode.Data > Data && (maxRightValue == null || maxRightValue > RightNode.Data)) {
+                    rightTree = RightNode.IsValidBinarySearchTree(Data, maxRightValue);
+                } else {
+                    // If the node is not in range, return false
+                    return false;
+                }
+            }
+
+            // Return results of left and right side of the tree
+            return leftTree && rightTree;
         }
     }
 
