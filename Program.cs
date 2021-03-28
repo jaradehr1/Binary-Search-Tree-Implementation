@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Binary_Search_Tree_Implementation
 {
@@ -105,6 +101,9 @@ namespace Binary_Search_Tree_Implementation
 
             Console.WriteLine("\nIs the Binary Tree Balanced");
             Console.WriteLine(binaryTree.IsBalanced());
+            
+            Console.WriteLine("\nIs the Binary Tree a Valid Binary Search Tree");
+            Console.WriteLine(binaryTree.IsValidBinarySearchTree());
         }
     }
 }
